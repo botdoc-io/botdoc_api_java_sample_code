@@ -2,11 +2,13 @@ package botdocapisample;
 
 /**
  *
- * @author Rafael Juzwiak
+ * @author Rafael Juzwiak, Botdoc Inc.
  */
 
 public class BotdocApiSample {
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        
+        
     }
 }
