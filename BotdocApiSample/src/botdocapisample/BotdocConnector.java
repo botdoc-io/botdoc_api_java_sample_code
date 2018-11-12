@@ -55,6 +55,13 @@ public class BotdocConnector {
         }
     }
     
+
+    /**
+     * Sends a request with the given id to the ContactMethods 
+     * sent uppon the time the Request was created
+     * It returns a List<Map> of ContactMethodNotificationSend() associated with
+     * this request, and the status of each of them.
+     */
     public List sendRequest(String id) throws IOException{
         
         //creates a HTTP Client
@@ -69,7 +76,7 @@ public class BotdocConnector {
         
         //Define URL and headers of this request
         String url = this.endpoint_base_url + "request/" + new Long(longId).toString() + "/send_notification/";
-	HttpPost post = new HttpPost(url);
+	    HttpPost post = new HttpPost(url);
         post.addHeader("Content-Type", "application/json");
         post.addHeader("Authorization", "JWT " + this.token);
         
@@ -77,14 +84,14 @@ public class BotdocConnector {
         HttpResponse response = httpClient.execute(post);
 
         //read return
-	BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-	StringBuffer result = new StringBuffer();
-	String line = "";
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = "";
         
-	while ((line = rd.readLine()) != null) {
-            result.append(line);
-	}
-        
+        while ((line = rd.readLine()) != null) {
+                result.append(line);
+        }
+            
         
         //converts response back to json
         Gson gson = new Gson();
@@ -93,13 +100,19 @@ public class BotdocConnector {
         return map;
     }
     
+
+
+    /**
+     * Returns a Map of the Request object with all information 
+     * returned from the Botdoc API
+     */
     public Map createRequest() throws UnsupportedEncodingException, IOException{
         //creates a HTTP Client
         HttpClient httpClient = HttpClientBuilder.create().build();
         
         //Define URL and headers of this request
         String url = this.endpoint_base_url + "request/";
-	HttpPost post = new HttpPost(url);
+	    HttpPost post = new HttpPost(url);
         post.addHeader("Content-Type", "application/json");
         post.addHeader("Authorization", "JWT " + this.token);
         
@@ -154,48 +167,51 @@ public class BotdocConnector {
         HttpResponse response = httpClient.execute(post);
 
         //read return
-	BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-	StringBuffer result = new StringBuffer();
-	String line = "";
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = "";
         
-	while ((line = rd.readLine()) != null) {
-            result.append(line);
-	}
-        
+        while ((line = rd.readLine()) != null) {
+                result.append(line);
+        }
+            
         //converts response back to json
         Map<String,Object> map = new HashMap<String,Object>();
         map = (Map<String,Object>) gson.fromJson(result.toString(), map.getClass());
         
         return map;
     }
-    
-    
-    
-    
-    
+        
+        
+        
+        
+    /**
+     * Set in the current class the token that should
+     * be used to perform the request to Botdoc API endpoints
+     */
     public String getToken() throws UnsupportedEncodingException, IOException {
         HttpClient httpClient = HttpClientBuilder.create().build();
         
         String url = this.endpoint_base_url + "auth/get_token/";
-	HttpPost post = new HttpPost(url);
-        
-        
+        HttpPost post = new HttpPost(url);
+            
+            
         List<NameValuePair> urlParameters = new ArrayList<>();
-	urlParameters.add(new BasicNameValuePair("api_key", this.apikey));
-	urlParameters.add(new BasicNameValuePair("email", this.account_email));
+        urlParameters.add(new BasicNameValuePair("api_key", this.apikey));
+        urlParameters.add(new BasicNameValuePair("email", this.account_email));
         
         post.setEntity(new UrlEncodedFormEntity(urlParameters));
         
         HttpResponse response = httpClient.execute(post);
 
-	BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-	StringBuffer result = new StringBuffer();
-	String line = "";
+        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+        StringBuffer result = new StringBuffer();
+        String line = "";
         
         
-	while ((line = rd.readLine()) != null) {
-            result.append(line);
-	}
+        while ((line = rd.readLine()) != null) {
+                result.append(line);
+        }
         
         Gson gson = new Gson();
         Map<String,Object> map = new HashMap<String,Object>();
@@ -208,7 +224,11 @@ public class BotdocConnector {
 
 
 
-
+/**
+ * We define a Request class just to convert back and forth to Json
+ * in order to create the POST variables from a class.
+ * We could also just create a Map variable instead of a class.
+ */
 class Request{
     public Integer id;
     public Map<String,String> requester = null;
