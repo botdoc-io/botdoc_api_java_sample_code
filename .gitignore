@@ -1,2 +1,11 @@
 /BotdocApiSample/nbproject/private/
 /BotdocApiSample/build/
+/bin/
+
+\.vscode/
+
+\.project
+
+\.classpath
+
+additional_libs/
