@@ -33,6 +33,6 @@ all provided contact information to it.
 java BotdocApiSample.java
 ``` 
 
-# [JOIN US ON SLACK](https://botdoc.io/slack/)
+## [JOIN US ON SLACK](https://botdoc.io/slack/)
 If you have any question let us know and we will be more than happy to help you on your Botdoc API path!
 
